@@ -4,9 +4,11 @@ import java.util.Set;
 
 public class Mail {
     private HashMap<String,Integer> palavras = new HashMap<String, Integer>();
+    private boolean spam;
 
-    public Mail(){
+    public Mail(boolean spam){
         palavras.clear();
+        this.spam = spam;
     }
 
     @Override public String toString(){
