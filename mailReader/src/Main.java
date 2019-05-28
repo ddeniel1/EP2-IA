@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws java.io.FileNotFoundException, java.io.IOException{
-        FileReader arq = new FileReader("./mailReader/emails.csv");
-        BufferedReader buff = new BufferedReader(arq);
+        FileReader arqNoSpam = new FileReader("./mailReader/NoSpam.csv");
+        //FileReader arqSpam = new FileReader("./mailReader/Spam.csv"); ainda nao tem
+        BufferedReader buff = new BufferedReader(arqNoSpam);
         ArrayList<Mail> emails = new ArrayList<Mail>();
         buff.readLine();
         Mail novo;
         while(buff.ready()){
-            System.out.println("Aqui");
-            novo = new Mail();
+            novo = new Mail(false);
             String aux = buff.readLine();
             do {
                 aux = aux+"\n"+buff.readLine();
@@ -20,6 +20,18 @@ public class Main {
             novo.addMail(aux);
             emails.add(novo);
         }
+       /* buff = new BufferedReader(arqSpam);
+        buff.readLine();
+        while(buff.ready()){
+            novo = new Mail(true);
+            String aux = buff.readLine();
+            do {
+                aux = aux+"\n"+buff.readLine();
+            }while (aux.charAt(aux.length()-1)!='"');
+            System.out.println(aux);
+            novo.addMail(aux);
+            emails.add(novo);
+        }*/
         System.out.println(emails.get(0).toString());
     }
 }
