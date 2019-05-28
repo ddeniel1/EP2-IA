@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EP2-IA.iml" filepath="$PROJECT_DIR$/EP2-IA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mailReader/mailReader.iml" filepath="$PROJECT_DIR$/mailReader/mailReader.iml" />
     </modules>
   </component>
 </project>
