@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws java.io.FileNotFoundException, java.io.IOException{
@@ -16,7 +17,7 @@ public class Main {
             do {
                 aux = aux+"\n"+buff.readLine();
             }while (aux.charAt(aux.length()-1)!='"');
-            System.out.println(aux);
+           // System.out.println(aux);
             novo.addMail(aux);
             emails.add(novo);
         }
@@ -32,6 +33,12 @@ public class Main {
             novo.addMail(aux);
             emails.add(novo);
         }*/
-        System.out.println(emails.get(0).toString());
+        Probabilidade naoSpam = new Probabilidade(emails.size()); //alterar futuramente com a implementacao dos Spams
+        for (int i=0;i<emails.size();i++) {
+            naoSpam.addMail(emails.get(i).getPalavras());
+        }
+
+
+        System.out.println(naoSpam.toString());
     }
 }

@@ -1,6 +1,7 @@
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Mail {
     private HashMap<String,Integer> palavras = new HashMap<String, Integer>();
@@ -10,12 +11,16 @@ public class Mail {
         palavras.clear();
         this.spam = spam;
     }
+    public HashMap<String,Integer> getPalavras(){
+        return palavras;
+    }
 
     @Override public String toString(){
         String resposta = "";
-        String[] keys = (String[]) palavras.keySet().toArray();
-        for (int i = 0; i < keys.length; i++) {
-            resposta = resposta + keys[i] +" : " + palavras.get(keys[i]) + "\n";
+        List<String> keys = palavras.keySet().stream().collect(Collectors.toList());
+        for (int i = 0; i < keys.size();i++) {
+            String aux = keys.get(i);
+            resposta = resposta + aux +" : " + palavras.get(aux) + "\n";
         }
         return resposta;
     }
@@ -33,7 +38,7 @@ public class Mail {
 
         String[] emailTemp = email.split(" ");
         for (int i = 0; i < emailTemp.length; i++) {
-            System.out.println(emailTemp[i]);
+          //  System.out.println(emailTemp[i]);
             addPalavra(emailTemp[i]);
 
         }
