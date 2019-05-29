@@ -28,8 +28,7 @@ public class Probabilidade {
         if(!probabilidades.containsKey(palavra)) return 0;
 
 
-        double resposta =(double) (probabilidades.get(palavra)+1)/totalPalavras()+vocabulario(outro);
-
+        double resposta =(double) (probabilidades.get(palavra)+1)/(totalPalavras()+vocabulario(outro));
 
 
 
@@ -83,13 +82,13 @@ public class Probabilidade {
             addPalavra(aux);
         }
     }
-    @Override
-    public String toString(){
+
+    public String toString(List<String> outro){
         String resposta = "";
         List<String> keys = probabilidades.keySet().stream().collect(Collectors.toList());
         for (int i = 0; i < keys.size();i++) {
             String aux = keys.get(i);
-            resposta = resposta + aux +" : " + prob(aux,keys) + "\n";
+            resposta = resposta + aux +" : " + prob(aux,outro) + "\n";
         }
         return resposta;
     }
