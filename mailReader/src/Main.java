@@ -59,6 +59,6 @@ public class Main {
         for (int i=0;i<emailsTeste.size();i++) {
             System.out.println("Email "+ i + " "+ (naoSpam.bayes(emailsTeste.get(i),spam.getTotalEmails(),spam.getKeys())>spam.bayes(emailsTeste.get(i),naoSpam.getTotalEmails(),naoSpam.getKeys())?"Nao Spam":"Spam"));
         }
-        System.out.println(naoSpam.toString(spam.getKeys()));
+//        System.out.println(naoSpam.toString(spam.getKeys()));
     }
 }
