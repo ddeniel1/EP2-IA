@@ -4,6 +4,11 @@ import java.util.stream.Collectors;
 
 public class Probabilidade {
     private HashMap<String, Integer> probabilidades = new HashMap<>();
+
+    public int getTotalEmails() {
+        return totalEmails;
+    }
+
     private int totalEmails;
     public Probabilidade(int emails){
         this.totalEmails = emails;
@@ -17,12 +22,12 @@ public class Probabilidade {
         }
     }
     private double prob(String palavra){
-        if(!probabilidades.containsKey(palavra)) return 1;
+        if(!probabilidades.containsKey(palavra)) return 0;
         double resposta =(double) probabilidades.get(palavra)/totalEmails;
         return resposta;
     }
-    public double bayes(Mail email){
-        double resposta = 0.5;
+    public double bayes(Mail email,int outro){
+        double resposta = ((double) totalEmails/(totalEmails+outro));
 
             HashMap<String, Integer> palavras = email.getPalavras();
             List<String> keys = palavras.keySet().stream().collect(Collectors.toList());
