@@ -16,8 +16,23 @@ public class Probabilidade {
             probabilidades.replace(palavra, aux+1);
         }
     }
-    public double prob(String palavra){
+    private double prob(String palavra){
+        if(!probabilidades.containsKey(palavra)) return 1;
         double resposta =(double) probabilidades.get(palavra)/totalEmails;
+        return resposta;
+    }
+    public double bayes(Mail email){
+        double resposta = 0.5;
+
+            HashMap<String, Integer> palavras = email.getPalavras();
+            List<String> keys = palavras.keySet().stream().collect(Collectors.toList());
+            for (int i = 0; i<keys.size(); i++){
+                String aux = keys.get(i);
+                for (int k = 0; k<palavras.get(aux);k++){
+                    resposta*=prob(aux);
+                }
+            }
+
         return resposta;
     }
     public void addMail(HashMap<String, Integer> palavras){
