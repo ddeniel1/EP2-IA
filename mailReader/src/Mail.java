@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -34,15 +37,48 @@ public class Mail {
         }
         palavras.put(palavra,1);
     }
-    public void addMail(String email){
+    public void addMail(String email) throws java.io.FileNotFoundException, java.io.IOException{
+        String emailTratado = trataEmail(email);
 
-        String[] emailTemp = email.split(" ");
+        String[] emailTemp = emailTratado.split(" ");
         for (int i = 0; i < emailTemp.length; i++) {
-          //  System.out.println(emailTemp[i]);
-            addPalavra(emailTemp[i]);
+//            System.out.println(emailTemp[i]);
+//            emailTemp[i] = emailTemp[i].trim();
+            if(!emailTemp[i].trim().isBlank() || !emailTemp[i].trim().equalsIgnoreCase(""))addPalavra(emailTemp[i].trim());
 
         }
     }
+
+    private String trataEmail(String email) throws java.io.FileNotFoundException, java.io.IOException{
+        String resposta=email.toLowerCase();
+        FileReader indesejaveisPalavras = new FileReader("./mailReader/noInPalavras.txt");
+        FileReader indesejaveisSimbolos = new FileReader("./mailReader/noInSimbolos.txt");
+        ArrayList<String> noIn = new ArrayList<>();
+        BufferedReader buff;
+
+        //Simbolos
+        buff = new BufferedReader(indesejaveisSimbolos);
+        while(buff.ready()){
+            noIn.add(buff.readLine().trim());
+        }
+        while(!noIn.isEmpty()){
+           // System.out.println(resposta);
+            resposta = resposta.replaceAll(noIn.remove(0),"");
+        }
+        //Palavras
+        buff = new BufferedReader(indesejaveisPalavras);
+        while(buff.ready()){
+            noIn.add(buff.readLine().trim());
+        }
+        while(!noIn.isEmpty()){
+           // System.out.println(resposta);
+            resposta = resposta.replaceAll(" "+noIn.remove(0)+" "," ");
+        }
+
+
+        return resposta;
+    }
+
     public int tamVocabulario(){
         return palavras.size();
     }

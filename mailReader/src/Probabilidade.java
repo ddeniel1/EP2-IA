@@ -1,5 +1,3 @@
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,9 +24,7 @@ public class Probabilidade {
         List<String> keys = palavras.keySet().stream().collect(Collectors.toList());
         for (int i = 0; i < keys.size();i++) {
            String aux = keys.get(i);
-           for (int k=0;k<palavras.get(aux);k++){
-               addPalavra(aux);
-           }
+            addPalavra(aux);
         }
     }
     @Override

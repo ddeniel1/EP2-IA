@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws java.io.FileNotFoundException, java.io.IOException{
@@ -11,13 +10,13 @@ public class Main {
         ArrayList<Mail> emails = new ArrayList<Mail>();
         buff.readLine();
         Mail novo;
-        while(buff.ready()){
+        while(buff.ready()) {
             novo = new Mail(false);
-            String aux = buff.readLine();
+            String aux = "";
             do {
-                aux = aux+"\n"+buff.readLine();
-            }while (aux.charAt(aux.length()-1)!='"');
-           // System.out.println(aux);
+                aux = aux + " " + buff.readLine();
+            } while (aux.charAt(aux.length() - 1) != '"');
+            // System.out.println(aux);
             novo.addMail(aux);
             emails.add(novo);
         }
