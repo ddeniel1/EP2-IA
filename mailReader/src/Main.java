@@ -57,7 +57,7 @@ public class Main {
 
 //      Faz o teste
         for (int i=0;i<emailsTeste.size();i++) {
-            System.out.println("Email "+ i + " "+ (naoSpam.bayes(emailsTeste.get(i),spam.getTotalEmails())>spam.bayes(emailsTeste.get(i),naoSpam.getTotalEmails())?"Nao Spam":"Spam"));
+            System.out.println("Email "+ i + " "+ (naoSpam.bayes(emailsTeste.get(i),spam.getTotalEmails(),spam.getKeys())>spam.bayes(emailsTeste.get(i),naoSpam.getTotalEmails(),naoSpam.getKeys())?"Nao Spam":"Spam"));
         }
 
     }

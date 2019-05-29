@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 public class Probabilidade {
     private HashMap<String, Integer> probabilidades = new HashMap<>();
 
+    public List<String> getKeys(){
+        return probabilidades.keySet().stream().collect(Collectors.toList());
+    }
     public int getTotalEmails() {
         return totalEmails;
     }
@@ -21,12 +24,44 @@ public class Probabilidade {
             probabilidades.replace(palavra, aux+1);
         }
     }
-    private double prob(String palavra){
+    private double prob(String palavra, List<String> outro){
         if(!probabilidades.containsKey(palavra)) return 0;
-        double resposta =(double) probabilidades.get(palavra)/totalEmails;
+
+
+        double resposta =(double) (probabilidades.get(palavra)+1)/totalPalavras()+vocabulario(outro);
+
+
+
+
         return resposta;
     }
-    public double bayes(Mail email,int outro){
+    private int totalPalavras(){
+        int resposta=0;
+        List<String> esse = getKeys();
+        for (int i=0; i<esse.size();i++){
+            resposta+=probabilidades.get(esse.get(i));
+        }
+        return resposta;
+    }
+
+    private int vocabulario(List<String> outro) {
+
+        int resposta = 0;
+        List<String> esse = getKeys();
+
+        for (int i = 0;i< outro.size(); i++){
+            if (esse.contains(outro.get(i))){
+                resposta++;
+                esse.remove(outro.get(i));
+            }
+        }
+        resposta+=esse.size();
+
+        return resposta;
+
+    }
+
+    public double bayes(Mail email,int outro, List<String> keysOutro){
         double resposta = ((double) totalEmails/(totalEmails+outro));
 
             HashMap<String, Integer> palavras = email.getPalavras();
@@ -34,7 +69,7 @@ public class Probabilidade {
             for (int i = 0; i<keys.size(); i++){
                 String aux = keys.get(i);
                 for (int k = 0; k<palavras.get(aux);k++){
-                    resposta*=prob(aux);
+                    resposta*=prob(aux,keysOutro);
                 }
             }
 
@@ -44,6 +79,7 @@ public class Probabilidade {
         List<String> keys = palavras.keySet().stream().collect(Collectors.toList());
         for (int i = 0; i < keys.size();i++) {
            String aux = keys.get(i);
+           for (int k = 0; k<palavras.get(aux); k++)
             addPalavra(aux);
         }
     }
@@ -53,7 +89,7 @@ public class Probabilidade {
         List<String> keys = probabilidades.keySet().stream().collect(Collectors.toList());
         for (int i = 0; i < keys.size();i++) {
             String aux = keys.get(i);
-            resposta = resposta + aux +" : " + prob(aux) + "\n";
+            resposta = resposta + aux +" : " + prob(aux,keys) + "\n";
         }
         return resposta;
     }
