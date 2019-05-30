@@ -25,7 +25,7 @@ public class Probabilidade {
         }
     }
     private double prob(String palavra, List<String> outro){
-        if(!probabilidades.containsKey(palavra)) return 0;
+        if(!probabilidades.containsKey(palavra)) return 1;
 
 
         double resposta =(double) (probabilidades.get(palavra)+1)/(totalPalavras()+vocabulario(outro));
@@ -71,7 +71,7 @@ public class Probabilidade {
                     resposta*=prob(aux,keysOutro);
                 }
             }
-
+        System.out.println(resposta);
         return resposta;
     }
     public void addMail(HashMap<String, Integer> palavras){

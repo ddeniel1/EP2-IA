@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws java.io.FileNotFoundException, java.io.IOException{
-        FileReader arqNoSpam = new FileReader("./mailReader/NoSpam.csv");
+        FileReader arqNoSpam = new FileReader("./mailReader/noSpam2.csv");
         FileReader arqSpam = new FileReader("./mailReader/Spam.csv");
         BufferedReader buff = new BufferedReader(arqNoSpam);
         ArrayList<Mail> emailsTreino = new ArrayList<Mail>();
@@ -36,7 +36,7 @@ public class Main {
         }
         int tamanho2 = emailsTreino.size()-tamanho1;
 //       Seleciona os emails para treino e para teste
-        int aux = (int) (emailsTreino.size()*0.2);
+        int aux = (int) (emailsTreino.size()*0.1);
         ArrayList<Mail> emailsTeste = new ArrayList<>();
         Random gerador = new Random();
         for (int i=0;i<aux;i++){
@@ -57,7 +57,12 @@ public class Main {
 
 //      Faz o teste
         for (int i=0;i<emailsTeste.size();i++) {
-            System.out.println("Email "+ i + " "+ (naoSpam.bayes(emailsTeste.get(i),spam.getTotalEmails(),spam.getKeys())>spam.bayes(emailsTeste.get(i),naoSpam.getTotalEmails(),naoSpam.getKeys())?"Nao Spam":"Spam"));
+            if(naoSpam.bayes(emailsTeste.get(i),spam.getTotalEmails(),spam.getKeys())>spam.bayes(emailsTeste.get(i),naoSpam.getTotalEmails(),naoSpam.getKeys())){
+                System.out.println("----------->\tEmail nao-Spam\t<-----------\n\n"+emailsTeste.get(i).toString());
+            }else{
+                System.out.println("----------->\tEmail Spam\t<-----------\n\n"+emailsTeste.get(i).toString());
+            }
+//            System.out.println("Email "+ i + " "+ (naoSpam.bayes(emailsTeste.get(i),spam.getTotalEmails(),spam.getKeys())>spam.bayes(emailsTeste.get(i),naoSpam.getTotalEmails(),naoSpam.getKeys())?"Nao Spam":"Spam"));
         }
 //        System.out.println(naoSpam.toString(spam.getKeys()));
     }
