@@ -35,8 +35,9 @@ public class Main {
             emailsTreino.add(novo);
         }
         int tamanho2 = emailsTreino.size()-tamanho1;
+//        System.out.println("tamanho1: "+tamanho1+" tamanho2: "+tamanho2);
 //       Seleciona os emails para treino e para teste
-        int aux = (int) (emailsTreino.size()*0.1);
+        int aux = 1;//(int) (emailsTreino.size()*0.1);
         ArrayList<Mail> emailsTeste = new ArrayList<>();
         Random gerador = new Random();
         for (int i=0;i<aux;i++){
@@ -46,10 +47,12 @@ public class Main {
         Probabilidade naoSpam = new Probabilidade(tamanho1);
         for (int i=0;i<tamanho1;i++) {
             naoSpam.addMail(emailsTreino.get(i).getPalavras());
+//            System.out.println(i);
         }
         Probabilidade spam = new Probabilidade(tamanho2);
-        for (int i=tamanho1+1;i<tamanho2;i++) {
+        for (int i=tamanho1;i<emailsTreino.size();i++) {
             spam.addMail(emailsTreino.get(i).getPalavras());
+//            System.out.println(i);
         }
 
 //      Resultado do treino
@@ -58,9 +61,9 @@ public class Main {
 //      Faz o teste
         for (int i=0;i<emailsTeste.size();i++) {
             if(naoSpam.bayes(emailsTeste.get(i),spam.getTotalEmails(),spam.getKeys())>spam.bayes(emailsTeste.get(i),naoSpam.getTotalEmails(),naoSpam.getKeys())){
-                System.out.println("----------->\tEmail nao-Spam\t<-----------\n\n"+emailsTeste.get(i).toString());
-            }else{
                 System.out.println("----------->\tEmail Spam\t<-----------\n\n"+emailsTeste.get(i).toString());
+            }else{
+                System.out.println("----------->\tEmail nao-Spam\t<-----------\n\n"+emailsTeste.get(i).toString());
             }
 //            System.out.println("Email "+ i + " "+ (naoSpam.bayes(emailsTeste.get(i),spam.getTotalEmails(),spam.getKeys())>spam.bayes(emailsTeste.get(i),naoSpam.getTotalEmails(),naoSpam.getKeys())?"Nao Spam":"Spam"));
         }
