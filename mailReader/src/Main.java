@@ -2,16 +2,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws java.io.FileNotFoundException, java.io.IOException{
-        int vezes = 10;
+        Scanner scan = new Scanner(System.in);
+
+        int vezes = scan.nextInt();
+        scan.close();
         double porcentagem = 0;
         for (int i=0;i<vezes;i++){
-            porcentagem+=run();
+            double corrida = run();
+            porcentagem+=corrida;
+            System.out.println("Run ("+(i+1)+"): "+ corrida+"% de acerto");
         }
         porcentagem /= vezes;
-        System.out.println("Taxa de acerto: "+porcentagem+"%");
+        System.out.println("Taxa de acerto: "+porcentagem+"% resultado da media de "+vezes+" runs");
 
     }
     private static double run()throws java.io.FileNotFoundException, java.io.IOException{
