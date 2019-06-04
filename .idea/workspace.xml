@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5aee7125-7274-40c8-9e48-f70000dd6b7f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mailReader/src/Transforma.java" beforeDir="false" />
-    </list>
+    <list default="true" id="5aee7125-7274-40c8-9e48-f70000dd6b7f" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -194,12 +192,12 @@
       <workItem from="1559169683175" duration="1540000" />
       <workItem from="1559234229936" duration="7293000" />
       <workItem from="1559657119869" duration="1180000" />
-      <workItem from="1559658642391" duration="4823000" />
+      <workItem from="1559658642391" duration="5125000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41702000" />
+    <option name="totallyTimeSpent" value="42004000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
