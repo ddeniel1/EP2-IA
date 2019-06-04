@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 public class Probabilidade {
     private HashMap<String, Integer> probabilidades = new HashMap<>();
+    private int vocabulario;
 
     public List<String> getKeys(){
         return probabilidades.keySet().stream().collect(Collectors.toList());
@@ -24,11 +25,11 @@ public class Probabilidade {
             probabilidades.replace(palavra, aux+1);
         }
     }
-    private double prob(String palavra, List<String> outro){
+    private double prob(String palavra){
         if(!probabilidades.containsKey(palavra)) return 1;
 
 
-        double resposta =(double) (probabilidades.get(palavra)+1)/(totalPalavras()+vocabulario(outro));
+        double resposta =(double) (probabilidades.get(palavra)+10000)/(totalPalavras()+this.vocabulario);
 
 
 
@@ -43,7 +44,7 @@ public class Probabilidade {
         return resposta;
     }
 
-    private int vocabulario(List<String> outro) {
+    private void vocabulario(List<String> outro) {
 
         int resposta = 0;
         List<String> esse = getKeys();
@@ -56,22 +57,23 @@ public class Probabilidade {
         }
         resposta+=esse.size();
 
-        return resposta;
+        this.vocabulario = resposta;
 
     }
 
     public double bayes(Mail email,int outro, List<String> keysOutro){
+        vocabulario(keysOutro);
         double resposta = ((double) totalEmails/(totalEmails+outro));
 
             HashMap<String, Integer> palavras = email.getPalavras();
             List<String> keys = palavras.keySet().stream().collect(Collectors.toList());
             for (int i = 0; i<keys.size(); i++){
                 String aux = keys.get(i);
-                for (int k = 0; k<palavras.get(aux);k++){
-                    resposta*=prob(aux,keysOutro);
-                }
+                //for (int k = 0; k<palavras.get(aux);k++){
+                    resposta*=prob(aux);
+                //}
             }
-        System.out.println(resposta);
+//        System.out.println(resposta);
         return resposta;
     }
     public void addMail(HashMap<String, Integer> palavras){
@@ -83,12 +85,12 @@ public class Probabilidade {
         }
     }
 
-    public String toString(List<String> outro){
+    @Override public String toString(){
         String resposta = "";
         List<String> keys = probabilidades.keySet().stream().collect(Collectors.toList());
         for (int i = 0; i < keys.size();i++) {
             String aux = keys.get(i);
-            resposta = resposta + aux +" : " + prob(aux,outro) + "\n";
+            resposta = resposta + aux +" : " + prob(aux) + "\n";
         }
         return resposta;
     }

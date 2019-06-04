@@ -8,7 +8,13 @@ import java.util.stream.Collectors;
 
 public class Mail {
     private HashMap<String,Integer> palavras = new HashMap<String, Integer>();
+
+    public boolean isSpam() {
+        return spam;
+    }
+
     private boolean spam;
+    private String email="";
 
     public Mail(boolean spam){
         palavras.clear();
@@ -19,13 +25,14 @@ public class Mail {
     }
 
     @Override public String toString(){
-        String resposta = "";
-        List<String> keys = palavras.keySet().stream().collect(Collectors.toList());
-        for (int i = 0; i < keys.size();i++) {
-            String aux = keys.get(i);
-            resposta = resposta + aux +" : " + palavras.get(aux) + "\n";
-        }
-        return resposta;
+        return this.email;
+//        String resposta = "";
+//        List<String> keys = palavras.keySet().stream().collect(Collectors.toList());
+//        for (int i = 0; i < keys.size();i++) {
+//            String aux = keys.get(i);
+//            resposta = resposta + aux +" : " + palavras.get(aux) + "\n";
+//        }
+//        return resposta;
     }
 
     public void addPalavra(String palavra){
@@ -39,6 +46,7 @@ public class Mail {
     }
     public void addMail(String email) throws java.io.FileNotFoundException, java.io.IOException{
         String emailTratado = trataEmail(email);
+        this.email = emailTratado;
 
         String[] emailTemp = emailTratado.split(" ");
         for (int i = 0; i < emailTemp.length; i++) {
